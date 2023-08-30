@@ -156,6 +156,7 @@ const App = () => {
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
+  // eslint-disable-next-line no-unused-vars
   const vote = (id) => {
     const anecdote = anecdoteById(id)
 
