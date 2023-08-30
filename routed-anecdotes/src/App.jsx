@@ -1,26 +1,42 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom'
 
-const Menu = () => {
+
+const Menu = ({ anecdotes }) => {
   const padding = {
     paddingRight: 5
   }
   return (
-    <div>
-      <a href='#' style={padding}>anecdotes</a>
-      <a href='#' style={padding}>create new</a>
-      <a href='#' style={padding}>about</a>
-    </div>
+    <Router>
+      <div>
+        <Link style={padding} to='/'>anecdotes</Link>
+        <Link style={padding} to='/createNew'>create new</Link>
+        <Link style={padding} to='/about'>about</Link>
+      </div>
+      <Routes>
+        <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path='/createNew' element={<CreateNew />} />
+        <Route path='/about' element={<About />} />
+      </Routes>
+    </Router>
   )
 }
 
-const AnecdoteList = ({ anecdotes }) => (
-  <div>
-    <h2>Anecdotes</h2>
-    <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
-    </ul>
-  </div>
-)
+const AnecdoteList = ({ anecdotes }) => {
+  return (
+    <div>
+      <h2>Anecdotes</h2>
+      <ul>
+        {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      </ul>
+    </div>
+  )
+}
 
 const About = () => (
   <div>
@@ -74,7 +90,7 @@ const CreateNew = (props) => {
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
         </div>
         <button>create</button>
       </form>
@@ -125,10 +141,7 @@ const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
-      <Menu />
-      <AnecdoteList anecdotes={anecdotes} />
-      <About />
-      <CreateNew addNew={addNew} />
+      <Menu anecdotes={anecdotes} />
       <Footer />
     </div>
   )
