@@ -5,27 +5,27 @@ import {
   BrowserRouter as Router,
   Routes, Route, Link, useMatch
 } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
-const Menu = ({ anecdotes }) => {
+const Menu = ({ anecdotes, addNew, notification }) => {
   const padding = {
     paddingRight: 5
   }
-
   const match = useMatch('/anecdotes/:id')
   const anecdote = match ? anecdotes.find(anecdote => anecdote.id === Number(match.params.id)) : null
-
   return (
     <div>
       <div>
         <Link style={padding} to='/'>anecdotes</Link>
         <Link style={padding} to='/createNew'>create new</Link>
         <Link style={padding} to='/about'>about</Link>
+        <p>{notification}</p>
       </div>
       <Routes>
         <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path='/anecdotes/:id' element={<Anecdote anecdote={anecdote} />} />
-        <Route path='/createNew' element={<CreateNew />} />
+        <Route path='/createNew' element={<CreateNew addNew={addNew} />} />
         <Route path='/about' element={<About />} />
       </Routes>
     </div>
@@ -78,20 +78,21 @@ const Footer = () => (
   </div>
 )
 
-const CreateNew = (props) => {
+const CreateNew = ({ addNew }) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.addNew({
+    addNew({
       content,
       author,
       info,
       votes: 0
     })
+    navigate('/')
   }
 
   return (
@@ -114,7 +115,6 @@ const CreateNew = (props) => {
       </form>
     </div>
   )
-
 }
 
 const App = () => {
@@ -140,6 +140,8 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`a new anecdote '${anecdote.content}' created!`)
+    setTimeout(() => { setNotification(null) }, 5000)
   }
 
   const anecdoteById = (id) =>
@@ -152,7 +154,6 @@ const App = () => {
       ...anecdote,
       votes: anecdote.votes + 1
     }
-
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
 
@@ -161,7 +162,10 @@ const App = () => {
       <h1>Software anecdotes</h1>
 
       <Router>
-        <Menu anecdotes={anecdotes} />
+        <Menu
+          anecdotes={anecdotes}
+          addNew={addNew}
+          notification={notification} />
       </Router>
       <Footer />
     </div>
