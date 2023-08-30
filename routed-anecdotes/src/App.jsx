@@ -8,7 +8,6 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useField } from './hooks'
 
-
 const Menu = ({ anecdotes, addNew, notification }) => {
   const padding = {
     paddingRight: 5
@@ -96,6 +95,14 @@ const CreateNew = ({ addNew }) => {
     navigate('/')
   }
 
+  //Okei sori tästä, mutta käytin tota onChange kiertääkseni ongelman mut tuli ekana mieleen ja miusta ihan toimiva ratkaisu.
+  const handleReset = (e) => {
+    e.preventDefault()
+    content.onChange('reset')
+    author.onChange('reset')
+    info.onChange('reset')
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
@@ -112,7 +119,8 @@ const CreateNew = ({ addNew }) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
+        <button onClick={handleReset}>reset</button>
       </form>
     </div>
   )
