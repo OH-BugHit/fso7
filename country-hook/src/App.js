@@ -3,7 +3,6 @@ import getSingle from './services/country'
 
 const useField = (type) => {
   const [value, setValue] = useState('')
-
   const onChange = (event) => {
     setValue(event.target.value)
   }
@@ -20,20 +19,20 @@ const useCountry = (name) => {
 
   useEffect(() => {
     console.log('efekti suoritetaan')
-    if(name) {
-    const fetch = async () => {
-      try {
-        const foundCountry = await getSingle(name)
-        foundCountry.found = true
-        setCountry(foundCountry)
-      } catch (e) {
-        const notFound = {found: false}
-        setCountry(notFound)
+    if (name) {
+      const fetch = async () => {
+        try {
+          const foundCountry = await getSingle(name)
+          foundCountry.found = true
+          setCountry(foundCountry)
+        } catch (e) {
+          const notFound = { found: false }
+          setCountry(notFound)
+        }
       }
+      fetch()
     }
-    fetch()
-    }
-  },[name])
+  }, [name])
 
   return country
 }
@@ -55,8 +54,8 @@ const Country = ({ country }) => {
     <div>
       <h3>{country.name.common} </h3>
       <div>capital {country.capital} </div>
-      <div>population {country.population}</div> 
-      <img src={country.flags.png} height='100' alt={`flag of ${country.name.common}`}/>  
+      <div>population {country.population}</div>
+      <img src={country.flags.png} height='100' alt={`flag of ${country.name.common}`} />
     </div>
   )
 }
