@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpZCI6IjY0ZTQ3YjUzZTEwNDQzMzRmZDkyZDNiOSIsImlhdCI6MTY5MjY5NTQwOH0.2A-j0nlsKYD1EqKpEGEMWyJB9kbtgI8FzU8-gx45Y5c
+
+{
+"title": "KovaBlogi",
+"author": "Olli Hilke",
+"url": "fso4/post_blog.rest",
+"likes": 60
+}

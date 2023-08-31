@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/64df5dec7002f1c117472047
+Content-Type: application/json
+
+{
+"title": "TestiBlogi12",
+"author": "Olli Hilke",
+"url": "testaa.putti/55",
+"likes": 213
+}

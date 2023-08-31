@@ -1,0 +1,57 @@
+li {
+    list-style-type: none;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 2px;
+}
+
+.logoutButton {
+    margin-left: 3px;
+}
+
+.removeBlog {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    background-color: white;
+    color: rebeccapurple;
+    border-color: red;
+}
+
+button {
+    margin: 1px;
+    margin-left: 3px;
+}
+
+.createButton {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+input {
+    margin-left: 3px;
+    margin-bottom: 3px;
+}
+
+.success {
+    color: green;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
