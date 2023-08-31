@@ -1,6 +1,10 @@
 import { useState } from 'react'
+import { newBlog } from '../reducers/blogsReducer'
+import { newNotification } from '../reducers/notificationReducer'
+import { useDispatch } from 'react-redux'
 
-const CreateBlog = ({ createBlog }) => {
+const CreateBlog = ({ createBlogRef, user }) => {
+  const dispatch = useDispatch()
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -12,10 +16,29 @@ const CreateBlog = ({ createBlog }) => {
       author: author,
       url: url
     })
-
     setTitle('')
     setAuthor('')
     setUrl('')
+  }
+
+  const createBlog = async (blog) => {
+    try {
+      dispatch(newBlog(blog, user))
+      dispatch(
+        newNotification({
+          message: `a new blog "${blog.title}" by ${blog.author}, added`,
+          success: 'success'
+        })
+      )
+      createBlogRef.current.toggleVisibility()
+    } catch (exeption) {
+      dispatch(
+        newNotification({
+          message: exeption.response.data.error,
+          success: 'error'
+        })
+      )
+    }
   }
 
   return (

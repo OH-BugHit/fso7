@@ -6,13 +6,23 @@ const setToken = (newToken) => {
   token = `bearer ${newToken}`
 }
 
+const getToken = () => {
+  const loggedUserSTRING = window.localStorage.getItem('loggedUser')
+  if (loggedUserSTRING) {
+    const user = JSON.parse(loggedUserSTRING)
+    return user
+  }
+  return null
+}
+
 const getAll = async () => {
   const request = axios.get(baseUrl)
   const response = await request
   return response.data
 }
 
-const createBlog = async (user, newBlog) => {
+const createBlog = async (newBlog) => {
+  const user = getToken() //tähän tulee se useSelector sit?
   setToken(user.token)
   const headers = {
     headers: { Authorization: token }
@@ -21,7 +31,9 @@ const createBlog = async (user, newBlog) => {
   return response.data
 }
 
-const addLike = async (user, blog) => {
+const addLike = async (blog) => {
+  //Put ei edellytä tokenia eli kokeile myös ilman kun periaatteessa turhaa tässä
+  const user = getToken() //tähän tulee se useSelector sit?
   setToken(user.token)
   const headers = {
     headers: { Authorization: token }
@@ -37,7 +49,8 @@ const addLike = async (user, blog) => {
   return response.data
 }
 
-const deleteBlog = async (user, blog) => {
+const deleteBlog = async (blog) => {
+  const user = getToken() //tähän tulee se useSelector sit?
   setToken(user.token)
   const headers = {
     headers: { Authorization: token }

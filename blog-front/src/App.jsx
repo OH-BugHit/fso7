@@ -1,23 +1,17 @@
-import { useState, useEffect, useRef } from 'react'
-import blogService from './services/blogs'
+import { useState, useEffect } from 'react'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import LogOrBlog from './components/LogOrBlog'
 import { useDispatch } from 'react-redux'
 import { newNotification } from './reducers/notificationReducer'
+import { initializeBlogs } from './reducers/blogsReducer'
 
 const App = () => {
   const dispatch = useDispatch()
-  const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const createBlogRef = useRef()
 
   useEffect(() => {
-    async function getAllBlogs() {
-      const blogs = await blogService.getAll()
-      setBlogs(blogs)
-    }
-    getAllBlogs()
+    dispatch(initializeBlogs())
   }, [])
 
   useEffect(() => {
@@ -56,45 +50,10 @@ const App = () => {
     }
   }
 
-  const createBlog = async (blogObj) => {
-    createBlogRef.current.toggleVisibility()
-    try {
-      const blog = await blogService.createBlog(user, blogObj)
-      blog.user = user
-      setBlogs(blogs.concat(blog))
-      dispatch(
-        newNotification({
-          message: `a new blog "${blogObj.title}" by ${blogObj.author}, added`,
-          success: 'success'
-        })
-      )
-    } catch (exeption) {
-      dispatch(
-        newNotification({
-          message: exeption.response.data.error,
-          success: 'error'
-        })
-      )
-    }
-  }
-
-  const updateBlogsAfterRemove = (blog) => {
-    const newBlogs = blogs.filter((e) => e !== blog)
-    setBlogs(newBlogs)
-  }
-
   return (
     <div>
       <Notification />
-      <LogOrBlog
-        loginUser={loginUser}
-        user={user}
-        setUser={setUser}
-        blogs={blogs}
-        createBlog={createBlog}
-        createBlogRef={createBlogRef}
-        updateBlogsAfterRemove={updateBlogsAfterRemove}
-      />
+      <LogOrBlog loginUser={loginUser} user={user} setUser={setUser} />
     </div>
   )
 }

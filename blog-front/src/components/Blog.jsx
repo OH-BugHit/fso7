@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import blogService from '../services/blogs'
 import { newNotification } from '../reducers/notificationReducer'
+import { giveLike, removeBlog } from '../reducers/blogsReducer'
 
-const Blog = ({ blog, user, updateBlogsAfterRemove }) => {
+const Blog = ({ blog, user }) => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState('view')
-  const [likes, setLikes] = useState(blog.likes)
 
   const handleButton = () => {
     if (visible === 'hide') {
@@ -17,10 +16,9 @@ const Blog = ({ blog, user, updateBlogsAfterRemove }) => {
   }
 
   const handleLikeButton = async () => {
-    const updateblog = { ...blog, likes: blog.likes + 1 }
     try {
-      await blogService.addLike(user, updateblog)
-      setLikes(likes + 1)
+      console.log('userid', blog)
+      dispatch(giveLike(blog))
       dispatch(
         newNotification({
           message: 'Like added',
@@ -52,8 +50,7 @@ const Blog = ({ blog, user, updateBlogsAfterRemove }) => {
   const handleRemove = async () => {
     if (window.confirm(`Remove blog '${blog.title}' by ${blog.author}`)) {
       try {
-        await blogService.deleteBlog(user, blog)
-        updateBlogsAfterRemove(blog)
+        dispatch(removeBlog(blog))
         dispatch(
           newNotification({
             message: `'${blog.title}' removed`,
@@ -75,13 +72,14 @@ const Blog = ({ blog, user, updateBlogsAfterRemove }) => {
     }
   }
 
-  const additionalInfo = (blog) => {
+  const additionalInfo = () => {
     if (visible === 'hide') {
+      console.log(blog.likes)
       return (
         <div>
           {blog.url}
           <br />
-          likes: {likes}
+          likes: {blog.likes}
           <button onClick={handleLikeButton}>like</button>
           <br />
           {blog.user.name}
