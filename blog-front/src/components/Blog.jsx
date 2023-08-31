@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import blogService from '../services/blogs'
-import DisplayMessage from './DisplayMessage'
+import { newNotification } from '../reducers/notificationReducer'
 
-const Blog = ({ blog, user, setNotifyMessage, updateBlogsAfterRemove }) => {
+const Blog = ({ blog, user, updateBlogsAfterRemove }) => {
+  const dispatch = useDispatch()
   const [visible, setVisible] = useState('view')
   const [likes, setLikes] = useState(blog.likes)
 
@@ -15,20 +17,23 @@ const Blog = ({ blog, user, setNotifyMessage, updateBlogsAfterRemove }) => {
   }
 
   const handleLikeButton = async () => {
-    blog.likes++
+    const updateblog = { ...blog, likes: blog.likes + 1 }
     try {
-      await blogService.addLike(user, blog)
+      await blogService.addLike(user, updateblog)
       setLikes(likes + 1)
-      DisplayMessage(setNotifyMessage, {
-        message: 'Like added',
-        messageType: 'success',
-        length: 2000
-      })
-    } catch (exeption) {
-      DisplayMessage(setNotifyMessage, {
-        message: exeption.response.data.error,
-        messageType: 'error'
-      })
+      dispatch(
+        newNotification({
+          message: 'Like added',
+          success: 'success'
+        })
+      )
+    } catch (e) {
+      dispatch(
+        newNotification({
+          message: e.response.data.error,
+          messageType: 'error'
+        })
+      )
     }
   }
 
@@ -49,16 +54,20 @@ const Blog = ({ blog, user, setNotifyMessage, updateBlogsAfterRemove }) => {
       try {
         await blogService.deleteBlog(user, blog)
         updateBlogsAfterRemove(blog)
-        DisplayMessage(setNotifyMessage, {
-          message: `'${blog.title}' removed`,
-          messageType: 'success'
-        })
+        dispatch(
+          newNotification({
+            message: `'${blog.title}' removed`,
+            messageType: 'success'
+          })
+        )
       } catch (exeption) {
         if (exeption) {
-          DisplayMessage(setNotifyMessage, {
-            message: exeption.message,
-            messageType: 'error'
-          })
+          dispatch(
+            newNotification({
+              message: exeption.message,
+              messageType: 'error'
+            })
+          )
         }
       }
     } else {

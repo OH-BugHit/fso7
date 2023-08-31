@@ -1,17 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import blogService from './services/blogs'
 import loginService from './services/login'
-import DisplayMessage from './components/DisplayMessage'
 import Notification from './components/Notification'
 import LogOrBlog from './components/LogOrBlog'
+import { useDispatch } from 'react-redux'
+import { newNotification } from './reducers/notificationReducer'
 
 const App = () => {
+  const dispatch = useDispatch()
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [notifyMessage, setNotifyMessage] = useState({
-    message: null,
-    messageType: 'success'
-  })
   const createBlogRef = useRef()
 
   useEffect(() => {
@@ -41,15 +39,19 @@ const App = () => {
       setUser(user)
     } catch (exeption) {
       if (exeption.response !== undefined) {
-        DisplayMessage(setNotifyMessage, {
-          message: exeption.response.data.error,
-          messageType: 'error'
-        })
+        dispatch(
+          newNotification({
+            message: exeption.response.data.error,
+            success: 'error'
+          })
+        )
       } else {
-        DisplayMessage(setNotifyMessage, {
-          message: exeption.message,
-          messageType: 'error'
-        })
+        dispatch(
+          newNotification({
+            message: exeption.message,
+            success: 'error'
+          })
+        )
       }
     }
   }
@@ -60,15 +62,19 @@ const App = () => {
       const blog = await blogService.createBlog(user, blogObj)
       blog.user = user
       setBlogs(blogs.concat(blog))
-      DisplayMessage(setNotifyMessage, {
-        message: `a new blog "${blogObj.title}" by ${blogObj.author}, added`,
-        messageType: 'success'
-      })
+      dispatch(
+        newNotification({
+          message: `a new blog "${blogObj.title}" by ${blogObj.author}, added`,
+          success: 'success'
+        })
+      )
     } catch (exeption) {
-      DisplayMessage(setNotifyMessage, {
-        message: exeption.response.data.error,
-        messageType: 'error'
-      })
+      dispatch(
+        newNotification({
+          message: exeption.response.data.error,
+          success: 'error'
+        })
+      )
     }
   }
 
@@ -79,7 +85,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={notifyMessage}></Notification>
+      <Notification />
       <LogOrBlog
         loginUser={loginUser}
         user={user}
@@ -87,7 +93,6 @@ const App = () => {
         blogs={blogs}
         createBlog={createBlog}
         createBlogRef={createBlogRef}
-        setNotifyMessage={setNotifyMessage}
         updateBlogsAfterRemove={updateBlogsAfterRemove}
       />
     </div>
