@@ -2,7 +2,7 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3003/api/blogs'
 
 let token = null
-const setToken = newToken => {
+const setToken = (newToken) => {
   token = `bearer ${newToken}`
 }
 
@@ -43,7 +43,9 @@ const deleteBlog = async (user, blog) => {
     headers: { Authorization: token }
   }
   const response = await axios.delete(`${baseUrl}/${blog.id}`, headers)
-  if (!response === null) { return response.data }
+  if (!response === null) {
+    return response.data
+  }
   return null
 }
 

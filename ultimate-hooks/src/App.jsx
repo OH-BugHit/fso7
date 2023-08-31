@@ -23,6 +23,7 @@ const useResource = (baseUrl) => {
 
   useEffect(() => {
     getAll()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getAll = async () => {

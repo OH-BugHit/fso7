@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 const CreateBlog = ({ createBlog }) => {
-
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -29,9 +28,9 @@ const CreateBlog = ({ createBlog }) => {
           <input
             type="text"
             value={title}
-            name='title'
+            name="title"
             onChange={({ target }) => setTitle(target.value)}
-            placeholder='type title here'
+            placeholder="type title here"
           />
         </div>
         <div>
@@ -39,24 +38,25 @@ const CreateBlog = ({ createBlog }) => {
           <input
             type="text"
             value={author}
-            name='author'
+            name="author"
             onChange={({ target }) => setAuthor(target.value)}
-            placeholder='type author here'
+            placeholder="type author here"
           />
-
         </div>
         <div>
           url:
           <input
             type="text"
-            name='url'
+            name="url"
             value={url}
             onChange={({ target }) => setUrl(target.value)}
-            placeholder='type url here'
+            placeholder="type url here"
           />
         </div>
         <div>
-          <button className='createButton' type='submit'>create</button>
+          <button className="createButton" type="submit">
+            create
+          </button>
         </div>
       </form>
     </div>

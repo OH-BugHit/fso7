@@ -4,7 +4,7 @@
  * @returns palauttaa blogien kirjoittajien nimet taulukossa (ei dublikaatteja)
  */
 const listOfAuthors = (blogs) => {
-    return [...new Set(blogs.map(blog => blog = blog.author))]
+  return [...new Set(blogs.map((blog) => (blog = blog.author)))]
 }
 
 /**
@@ -13,15 +13,15 @@ const listOfAuthors = (blogs) => {
  * @returns palauttaa oliona kokonaistykkäysmäärät authoreittain (author: ,likes:)
  */
 const listLikes = (blogs) => {
-    const resultList = []
-    listOfAuthors(blogs).forEach(author => {
-        resultList.push({
-            author: `${author}`,
-            likes: totalLikes(blogs.filter((blog) => blog.author === author))
-        })
+  const resultList = []
+  listOfAuthors(blogs).forEach((author) => {
+    resultList.push({
+      author: `${author}`,
+      likes: totalLikes(blogs.filter((blog) => blog.author === author))
     })
+  })
 
-    return resultList
+  return resultList
 }
 
 /**
@@ -30,7 +30,7 @@ const listLikes = (blogs) => {
  * @returns palauttaa aina 1
  */
 const dummy = (blogs) => {
-    return 1
+  return 1
 }
 
 /**
@@ -39,7 +39,7 @@ const dummy = (blogs) => {
  * @returns palauttaa yhteenlasketun tykkäysmäärän saamistaan blogeista
  */
 const totalLikes = (blogs) => {
-    return Object.values(blogs).reduce((a, b) => a + b.likes, 0)
+  return Object.values(blogs).reduce((a, b) => a + b.likes, 0)
 }
 
 /**
@@ -48,7 +48,7 @@ const totalLikes = (blogs) => {
  * @returns palauttaa blogin jolla eniten tykkäyksiä
  */
 const favoriteBlog = (blogs) => {
-    return blogs.reduce((a, b) => (a.likes > b.likes) ? a : b)
+  return blogs.reduce((a, b) => (a.likes > b.likes ? a : b))
 }
 
 /*
@@ -58,36 +58,38 @@ const favoriteBlog = (blogs) => {
     Kokeillaas parempaa tohon mostLikes...
 */
 const mostBlogs = (blogs) => {
-    const results = []
-    blogs.forEach(author => {
-        results.push(blogs.filter((blog) => blog.author === author.author))
-    })
-    const findWinner = results.reduce((findWinner, nextAuthor) => {
-        return (Object.keys(findWinner).length >= Object.keys(nextAuthor).length) ? findWinner : nextAuthor
-    })
-    const winner = {
-        author: findWinner[0].author,
-        blogs: Object.keys(findWinner).length
-    }
-    return winner
+  const results = []
+  blogs.forEach((author) => {
+    results.push(blogs.filter((blog) => blog.author === author.author))
+  })
+  const findWinner = results.reduce((findWinner, nextAuthor) => {
+    return Object.keys(findWinner).length >= Object.keys(nextAuthor).length
+      ? findWinner
+      : nextAuthor
+  })
+  const winner = {
+    author: findWinner[0].author,
+    blogs: Object.keys(findWinner).length
+  }
+  return winner
 }
 
 /**
  * Funktio etsimään eniten tykkäyksiä saanut kirjoittaja
  * @param {*} blogs ottaa parametrikseen blogit
- * @returns palauttaa eniten tykkäyksiä keränneen kirjoittajan (author: ,likes:) 
+ * @returns palauttaa eniten tykkäyksiä keränneen kirjoittajan (author: ,likes:)
  */
 const mostLikes = (blogs) => {
-    topList = listLikes(blogs).sort((a, b) => {
-        return a.likes - b.likes
-    })
-    return topList[topList.length - 1]
+  topList = listLikes(blogs).sort((a, b) => {
+    return a.likes - b.likes
+  })
+  return topList[topList.length - 1]
 }
 
 module.exports = {
-    dummy,
-    totalLikes,
-    favoriteBlog,
-    mostBlogs,
-    mostLikes
+  dummy,
+  totalLikes,
+  favoriteBlog,
+  mostBlogs,
+  mostLikes
 }

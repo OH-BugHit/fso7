@@ -3,19 +3,15 @@ const DisplayMessage = (setNotifyMessage, { ...message }) => {
   if (message.length) {
     delay = message.length
   }
-  setNotifyMessage(
-    {
-      message: `${message.message}`,
-      messageType: `${message.messageType}`
-    }
-  )
+  setNotifyMessage({
+    message: `${message.message}`,
+    messageType: `${message.messageType}`
+  })
   setTimeout(() => {
-    setNotifyMessage(
-      {
-        message: null,
-        messageType: 'success'
-      }
-    )
+    setNotifyMessage({
+      message: null,
+      messageType: 'success'
+    })
     if (message.reload === true) {
       window.location.reload(false)
     }

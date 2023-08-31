@@ -3,11 +3,30 @@ import CreateBlog from './CreateBlog'
 import Togglable from './Togglable'
 import { useState } from 'react'
 
-const LogOrBlog = ({ loginUser, user, blogs, setUser, handleAddBlog, createBlog, createBlogRef, setNotifyMessage, updateBlogsAfterRemove }) => {
+const LogOrBlog = ({
+  loginUser,
+  user,
+  blogs,
+  setUser,
+  handleAddBlog,
+  createBlog,
+  createBlogRef,
+  setNotifyMessage,
+  updateBlogsAfterRemove
+}) => {
   if (user === null) {
     return RenderLogin({ loginUser })
   } else {
-    return renderBlogs({ blogs, user, setUser, handleAddBlog, createBlog, createBlogRef, setNotifyMessage, updateBlogsAfterRemove })
+    return renderBlogs({
+      blogs,
+      user,
+      setUser,
+      handleAddBlog,
+      createBlog,
+      createBlogRef,
+      setNotifyMessage,
+      updateBlogsAfterRemove
+    })
   }
 }
 
@@ -53,7 +72,15 @@ const RenderLogin = ({ loginUser }) => {
   )
 }
 
-const renderBlogs = ({ blogs, user, setUser, createBlog, createBlogRef, setNotifyMessage, updateBlogsAfterRemove }) => {
+const renderBlogs = ({
+  blogs,
+  user,
+  setUser,
+  createBlog,
+  createBlogRef,
+  setNotifyMessage,
+  updateBlogsAfterRemove
+}) => {
   const handleLogOut = () => {
     window.localStorage.clear()
     setUser(null)
@@ -64,21 +91,28 @@ const renderBlogs = ({ blogs, user, setUser, createBlog, createBlogRef, setNotif
   return (
     <div>
       <h2>blogs</h2>
-      <p>{user.name} logged in
-        <button className='logoutButton' onClick={handleLogOut}>logout</button> </p>
-      <Togglable buttonLabel='new blog' hiddenLabel='cancel' ref={createBlogRef}>
-        <CreateBlog
-          createBlog={createBlog}
-        />
+      <p>
+        {user.name} logged in
+        <button className="logoutButton" onClick={handleLogOut}>
+          logout
+        </button>{' '}
+      </p>
+      <Togglable
+        buttonLabel="new blog"
+        hiddenLabel="cancel"
+        ref={createBlogRef}
+      >
+        <CreateBlog createBlog={createBlog} />
       </Togglable>
-      {blogs.map(blog =>
-        <Blog key={blog.id}
+      {blogs.map((blog) => (
+        <Blog
+          key={blog.id}
           blog={blog}
           user={user}
           setNotifyMessage={setNotifyMessage}
           updateBlogsAfterRemove={updateBlogsAfterRemove}
         />
-      )}
+      ))}
     </div>
   )
 }

@@ -19,25 +19,25 @@ const Blog = ({ blog, user, setNotifyMessage, updateBlogsAfterRemove }) => {
     try {
       await blogService.addLike(user, blog)
       setLikes(likes + 1)
-      DisplayMessage(setNotifyMessage,
-        {
-          message: 'Like added',
-          messageType: 'success',
-          length: 2000
-        })
+      DisplayMessage(setNotifyMessage, {
+        message: 'Like added',
+        messageType: 'success',
+        length: 2000
+      })
     } catch (exeption) {
-      DisplayMessage(setNotifyMessage,
-        {
-          message: exeption.response.data.error,
-          messageType: 'error'
-        })
+      DisplayMessage(setNotifyMessage, {
+        message: exeption.response.data.error,
+        messageType: 'error'
+      })
     }
   }
 
   const removeButton = () => {
     if (blog.user.username === user.username) {
       return (
-        <button className='removeBlog' onClick={handleRemove}>remove</button>
+        <button className="removeBlog" onClick={handleRemove}>
+          remove
+        </button>
       )
     } else {
       return null
@@ -49,18 +49,16 @@ const Blog = ({ blog, user, setNotifyMessage, updateBlogsAfterRemove }) => {
       try {
         await blogService.deleteBlog(user, blog)
         updateBlogsAfterRemove(blog)
-        DisplayMessage(setNotifyMessage,
-          {
-            message: `'${blog.title}' removed`,
-            messageType: 'success'
-          })
+        DisplayMessage(setNotifyMessage, {
+          message: `'${blog.title}' removed`,
+          messageType: 'success'
+        })
       } catch (exeption) {
         if (exeption) {
-          DisplayMessage(setNotifyMessage,
-            {
-              message: exeption.message,
-              messageType: 'error'
-            })
+          DisplayMessage(setNotifyMessage, {
+            message: exeption.message,
+            messageType: 'error'
+          })
         }
       }
     } else {
@@ -88,9 +86,11 @@ const Blog = ({ blog, user, setNotifyMessage, updateBlogsAfterRemove }) => {
 
   return (
     <li>
-      <div className='blogItem'>
+      <div className="blogItem">
         {blog.title} {blog.author}
-        <button onClick={handleButton} name={'view_Hide'} >{visible}</button>
+        <button onClick={handleButton} name={'view_Hide'}>
+          {visible}
+        </button>
         {additionalInfo(blog)}
       </div>
     </li>

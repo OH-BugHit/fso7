@@ -11,7 +11,7 @@ const blogSchema = mongoose.Schema({
   }
 })
 
-//id ja versiopoisto: 
+//id ja versiopoisto:
 blogSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()

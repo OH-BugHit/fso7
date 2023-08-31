@@ -5,7 +5,6 @@ import Blog from './Blog'
 import userEvent from '@testing-library/user-event'
 
 describe('Show/Hide blog info', () => {
-
   test('renders title but not url or likes', () => {
     const blog = {
       title: 'Testiotsikko',
@@ -16,12 +15,11 @@ describe('Show/Hide blog info', () => {
 
     render(<Blog blog={blog} />)
 
-    const title = screen.getByText(
-      'Testiotsikko', { exact: false })
+    const title = screen.getByText('Testiotsikko', { exact: false })
     expect(title).toBeDefined()
   })
 
-  test('renders additional info when \'view\' pressed', async () => {
+  test("renders additional info when 'view' pressed", async () => {
     const blog = {
       title: 'Testiotsikko',
       author: 'Olli',
@@ -41,24 +39,15 @@ describe('Show/Hide blog info', () => {
     const button = screen.getByText('view')
     await user.click(button)
 
-    const title = screen.getByText(
-      'Testiotsikko', { exact: false })
+    const title = screen.getByText('Testiotsikko', { exact: false })
     expect(title).toBeDefined()
-    const author = screen.getByText(
-      'Olli', { exact: false }
-    )
+    const author = screen.getByText('Olli', { exact: false })
     expect(author).toBeDefined()
-    const url = screen.getByText(
-      'www.rrr.eee', { exact: false }
-    )
+    const url = screen.getByText('www.rrr.eee', { exact: false })
     expect(url).toBeDefined()
-    const likes = screen.getByText(
-      '5', { exact: false }
-    )
+    const likes = screen.getByText('5', { exact: false })
     expect(likes).toBeDefined()
-    const userName = screen.getByText(
-      'mockName', { exact: false }
-    )
+    const userName = screen.getByText('mockName', { exact: false })
     expect(userName).toBeDefined()
   })
 })
@@ -81,16 +70,18 @@ describe('Like-button test', () => {
       <div>
         {blog.title} {blog.author}
         <button onClick={mockHandleButton}>{mockVisible}</button>
-        {<div>
-          {blog.url}
-          <br />
-          likes: {blog.likes}
-          <button onClick={mockHandler}>like</button>
-          <br />
-          {blog.user.name}
-          <br />
-          {mockRemoveButton()}
-        </div>}
+        {
+          <div>
+            {blog.url}
+            <br />
+            likes: {blog.likes}
+            <button onClick={mockHandler}>like</button>
+            <br />
+            {blog.user.name}
+            <br />
+            {mockRemoveButton()}
+          </div>
+        }
       </div>
     )
 

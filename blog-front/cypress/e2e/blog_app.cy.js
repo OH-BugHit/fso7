@@ -12,9 +12,9 @@ describe('Blog app', () => {
   describe('Login', function () {
     beforeEach(function () {
       const user = {
-        "username": "tester",
-        "name": "Olli Testaa",
-        "password": "ofrew49rfzoke4"
+        username: 'tester',
+        name: 'Olli Testaa',
+        password: 'ofrew49rfzoke4'
       }
       cy.request('POST', `${Cypress.env('BACKEND')}/users`, user)
     })
@@ -45,13 +45,19 @@ describe('Blog app', () => {
         cy.get('input[name="author"').type('Blogin author')
         cy.get('input[name="url"').type('Blogin URL')
         cy.get('.createButton').click()
-        cy.get('.success').contains('a new blog "Blogin title" by Blogin author, added')
+        cy.get('.success').contains(
+          'a new blog "Blogin title" by Blogin author, added'
+        )
         cy.contains('Blogin title Blogin author')
       })
 
       describe('When blog created', function () {
         beforeEach(function () {
-          cy.postBlog({ title: 'TitleTest', author: 'AuthorTest', url: 'BlogTest' })
+          cy.postBlog({
+            title: 'TitleTest',
+            author: 'AuthorTest',
+            url: 'BlogTest'
+          })
         })
 
         it('blog can be liked', function () {
@@ -64,16 +70,16 @@ describe('Blog app', () => {
         it('blog can be removed', function () {
           cy.get('.blogItem').contains('view').click()
           cy.get('.removeBlog').click()
-          cy.get('.success').contains('\'TitleTest\' removed')
+          cy.get('.success').contains("'TitleTest' removed")
           cy.get('html').should('not.contain', '.blogItem')
         })
 
         it('remove button cannot be seen by another user', function () {
           cy.get('.logoutButton').click()
           const user = {
-            "username": "tester2",
-            "name": "Olli Testaa2",
-            "password": "SADFr323w4"
+            username: 'tester2',
+            name: 'Olli Testaa2',
+            password: 'SADFr323w4'
           }
           cy.request('POST', `${Cypress.env('BACKEND')}/users`, user)
           cy.get('input[name="Username"').type('tester2')
@@ -86,11 +92,31 @@ describe('Blog app', () => {
 
       describe('When several blogs created', function () {
         beforeEach(function () {
-          cy.postBlog({ title: 'Title1', author: 'Olli Hilke', url: 'https://www.linkedin.com/in/ollihi/' })
-          cy.postBlog({ title: 'Title2', author: 'Olli Hilke', url: 'https://www.linkedin.com/in/ollihi/' })
-          cy.postBlog({ title: 'Title3', author: 'Olli Hilke', url: 'https://www.linkedin.com/in/ollihi/' })
-          cy.postBlog({ title: 'Title4', author: 'Olli Hilke', url: 'https://www.linkedin.com/in/ollihi/' })
-          cy.postBlog({ title: 'Title5', author: 'Olli Hilke', url: 'https://www.linkedin.com/in/ollihi/' })
+          cy.postBlog({
+            title: 'Title1',
+            author: 'Olli Hilke',
+            url: 'https://www.linkedin.com/in/ollihi/'
+          })
+          cy.postBlog({
+            title: 'Title2',
+            author: 'Olli Hilke',
+            url: 'https://www.linkedin.com/in/ollihi/'
+          })
+          cy.postBlog({
+            title: 'Title3',
+            author: 'Olli Hilke',
+            url: 'https://www.linkedin.com/in/ollihi/'
+          })
+          cy.postBlog({
+            title: 'Title4',
+            author: 'Olli Hilke',
+            url: 'https://www.linkedin.com/in/ollihi/'
+          })
+          cy.postBlog({
+            title: 'Title5',
+            author: 'Olli Hilke',
+            url: 'https://www.linkedin.com/in/ollihi/'
+          })
         })
 
         it('the blogs are sorted by likes (most likes at top)', function () {

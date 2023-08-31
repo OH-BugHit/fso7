@@ -8,12 +8,10 @@ import LogOrBlog from './components/LogOrBlog'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [notifyMessage, setNotifyMessage] = useState(
-    {
-      message: null,
-      messageType: 'success'
-    }
-  )
+  const [notifyMessage, setNotifyMessage] = useState({
+    message: null,
+    messageType: 'success'
+  })
   const createBlogRef = useRef()
 
   useEffect(() => {
@@ -35,26 +33,23 @@ const App = () => {
   const loginUser = async ({ username, password }) => {
     try {
       const user = await loginService.login({
-        username, password
+        username,
+        password
       })
 
-      window.localStorage.setItem(
-        'loggedUser', JSON.stringify(user)
-      )
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
       setUser(user)
     } catch (exeption) {
       if (exeption.response !== undefined) {
-        DisplayMessage(setNotifyMessage,
-          {
-            message: exeption.response.data.error,
-            messageType: 'error'
-          })
+        DisplayMessage(setNotifyMessage, {
+          message: exeption.response.data.error,
+          messageType: 'error'
+        })
       } else {
-        DisplayMessage(setNotifyMessage,
-          {
-            message: exeption.message,
-            messageType: 'error'
-          })
+        DisplayMessage(setNotifyMessage, {
+          message: exeption.message,
+          messageType: 'error'
+        })
       }
     }
   }
@@ -62,27 +57,23 @@ const App = () => {
   const createBlog = async (blogObj) => {
     createBlogRef.current.toggleVisibility()
     try {
-      const blog = await blogService.createBlog(
-        user, blogObj
-      )
+      const blog = await blogService.createBlog(user, blogObj)
       blog.user = user
       setBlogs(blogs.concat(blog))
-      DisplayMessage(setNotifyMessage,
-        {
-          message: `a new blog "${blogObj.title}" by ${blogObj.author}, added`,
-          messageType: 'success'
-        })
+      DisplayMessage(setNotifyMessage, {
+        message: `a new blog "${blogObj.title}" by ${blogObj.author}, added`,
+        messageType: 'success'
+      })
     } catch (exeption) {
-      DisplayMessage(setNotifyMessage,
-        {
-          message: exeption.response.data.error,
-          messageType: 'error'
-        })
+      DisplayMessage(setNotifyMessage, {
+        message: exeption.response.data.error,
+        messageType: 'error'
+      })
     }
   }
 
   const updateBlogsAfterRemove = (blog) => {
-    const newBlogs = blogs.filter(e => e !== blog)
+    const newBlogs = blogs.filter((e) => e !== blog)
     setBlogs(newBlogs)
   }
 

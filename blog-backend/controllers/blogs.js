@@ -16,7 +16,7 @@ blogsRouter.post('/', userExtractor, async (request, response) => {
   } else if (!blog.url) {
     response.status(400).send({ error: 'URL undefined' })
   } else {
-    if (!blog.likes || blog.likes === "") {
+    if (!blog.likes || blog.likes === '') {
       blog.likes = 0
     }
 

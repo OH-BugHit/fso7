@@ -5,7 +5,7 @@ const User = require('../models/users')
 router.post('/reset', async (request, response) => {
   await Blog.deleteMany({})
   await User.deleteMany({})
-  console.log("japoa");
+  console.log('japoa')
 
   return response.status(204).end()
 })
