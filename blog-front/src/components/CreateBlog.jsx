@@ -23,7 +23,7 @@ const CreateBlog = ({ createBlogRef, user }) => {
 
   const createBlog = async (blog) => {
     try {
-      dispatch(newBlog(blog, user))
+      await dispatch(newBlog(blog, user))
       dispatch(
         newNotification({
           message: `a new blog "${blog.title}" by ${blog.author}, added`,

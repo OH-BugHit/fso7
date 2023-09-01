@@ -42,7 +42,6 @@ export const giveLike = (blog) => {
 export const newBlog = (blog, user) => {
   return async (dispatch) => {
     const newBlog = await blogs.createBlog(blog)
-    console.log('nonnniiiii', newBlog)
     newBlog.user = { username: user.username, name: user.name }
     dispatch(createBlog(newBlog))
   }
