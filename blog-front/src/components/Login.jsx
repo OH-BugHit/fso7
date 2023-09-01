@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import loginService from '../services/login'
 import { newNotification } from '../reducers/notificationReducer'
 import { saveUser } from '../reducers/userReducer'
+import { initializeBlogs } from '../reducers/blogsReducer'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -17,6 +18,8 @@ const Login = () => {
       })
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       dispatch(saveUser(user))
+      //Uudelleen initialisointi tässä varuilta jos networkerror ollut ennen onnistunutta kirjautumista
+      dispatch(initializeBlogs())
     } catch (exeption) {
       if (exeption.response !== undefined) {
         dispatch(
