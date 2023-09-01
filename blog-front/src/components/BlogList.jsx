@@ -1,19 +1,24 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Blog from './Blog'
 import CreateBlog from './CreateBlog'
 import Togglable from './Togglable'
+import { clearUser } from '../reducers/userReducer'
 
-const BlogList = ({ user, setUser, createBlogRef }) => {
-  const blogs = useSelector(({ blogs }) => {
+const BlogList = ({ createBlogRef }) => {
+  const dispatch = useDispatch()
+  const response = useSelector(({ blogs }) => {
     return blogs
+  })
+  const blogs = [...response].sort((a, b) => b.likes - a.likes)
+  const user = useSelector(({ user }) => {
+    return user
   })
 
   const handleLogOut = () => {
     window.localStorage.clear()
-    setUser(null)
+    dispatch(clearUser())
   }
-  //Järjestetään likejen mukaan ennen renderöintiä
-  // sortedBlogs.sort((a, b) => b.likes - a.likes)
+
   return (
     <div>
       <h2>blogs</h2>

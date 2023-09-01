@@ -1,20 +1,17 @@
 import Login from './Login'
 import BlogList from './BlogList'
 import { useRef } from 'react'
+import { useSelector } from 'react-redux'
 
-const LogOrBlog = ({ loginUser, user, setUser, createBlog }) => {
+const LogOrBlog = () => {
+  const user = useSelector(({ user }) => {
+    return user
+  })
   const createBlogRef = useRef()
   if (user === null) {
-    return <Login loginUser={loginUser} />
+    return <Login />
   } else {
-    return (
-      <BlogList
-        user={user}
-        setUser={setUser}
-        createBlog={createBlog}
-        createBlogRef={createBlogRef}
-      />
-    )
+    return <BlogList createBlogRef={createBlogRef} />
   }
 }
 

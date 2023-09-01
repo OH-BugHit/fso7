@@ -17,7 +17,6 @@ const Blog = ({ blog, user }) => {
 
   const handleLikeButton = async () => {
     try {
-      console.log('userid', blog)
       await dispatch(giveLike(blog))
       dispatch(
         newNotification({
@@ -82,7 +81,6 @@ const Blog = ({ blog, user }) => {
 
   const additionalInfo = () => {
     if (visible === 'hide') {
-      console.log(blog.likes)
       return (
         <div>
           {blog.url}

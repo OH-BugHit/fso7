@@ -16,5 +16,11 @@ export const saveUser = (content) => {
   }
 }
 
+export const clearUser = () => {
+  return async (dispatch) => {
+    dispatch(setUser(null))
+  }
+}
+
 export const { setUser } = userSlice.actions
 export default userSlice.reducer

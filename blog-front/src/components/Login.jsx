@@ -1,8 +1,40 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import loginService from '../services/login'
+import { newNotification } from '../reducers/notificationReducer'
+import { saveUser } from '../reducers/userReducer'
 
-const Login = ({ loginUser }) => {
+const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+
+  const loginUser = async () => {
+    try {
+      const user = await loginService.login({
+        username,
+        password
+      })
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
+      dispatch(saveUser(user))
+    } catch (exeption) {
+      if (exeption.response !== undefined) {
+        dispatch(
+          newNotification({
+            message: exeption.response.data.error,
+            success: 'error'
+          })
+        )
+      } else {
+        dispatch(
+          newNotification({
+            message: exeption.message,
+            success: 'error'
+          })
+        )
+      }
+    }
+  }
 
   const handleLogin = (event) => {
     event.preventDefault()
@@ -25,6 +57,8 @@ const Login = ({ loginUser }) => {
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
+            placeholder="type username here"
+            autoComplete="username"
           />
         </div>
         <div>
@@ -34,6 +68,8 @@ const Login = ({ loginUser }) => {
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
+            placeholder="type password here"
+            autoComplete="current-password"
           />
         </div>
         <button type="submit">login</button>
