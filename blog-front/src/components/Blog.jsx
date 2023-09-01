@@ -18,7 +18,7 @@ const Blog = ({ blog, user }) => {
   const handleLikeButton = async () => {
     try {
       console.log('userid', blog)
-      dispatch(giveLike(blog))
+      await dispatch(giveLike(blog))
       dispatch(
         newNotification({
           message: 'Like added',
@@ -26,10 +26,14 @@ const Blog = ({ blog, user }) => {
         })
       )
     } catch (e) {
+      var message = e.message
+      if (e.message.includes('400')) {
+        message = e.response.data.error
+      }
       dispatch(
         newNotification({
-          message: e.response.data.error,
-          messageType: 'error'
+          message: message,
+          success: 'error'
         })
       )
     }
@@ -50,7 +54,7 @@ const Blog = ({ blog, user }) => {
   const handleRemove = async () => {
     if (window.confirm(`Remove blog '${blog.title}' by ${blog.author}`)) {
       try {
-        dispatch(removeBlog(blog))
+        await dispatch(removeBlog(blog))
         dispatch(
           newNotification({
             message: `'${blog.title}' removed`,
@@ -59,10 +63,14 @@ const Blog = ({ blog, user }) => {
         )
       } catch (exeption) {
         if (exeption) {
+          var message = exeption.message
+          if (exeption.message.includes('400')) {
+            message = exeption.response.data.error
+          }
           dispatch(
             newNotification({
-              message: exeption.message,
-              messageType: 'error'
+              message: message,
+              success: 'error'
             })
           )
         }

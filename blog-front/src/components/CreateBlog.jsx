@@ -32,9 +32,13 @@ const CreateBlog = ({ createBlogRef, user }) => {
       )
       createBlogRef.current.toggleVisibility()
     } catch (exeption) {
+      var message = exeption.message
+      if (exeption.message.includes('400')) {
+        message = exeption.response.data.error
+      }
       dispatch(
         newNotification({
-          message: exeption.response.data.error,
+          message: message,
           success: 'error'
         })
       )
