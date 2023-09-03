@@ -3,7 +3,7 @@ import Notification from './components/Notification'
 import LogOrBlog from './components/LogOrBlog'
 import Users from './components/Users'
 import Menu from './components/Menu'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { initializeBlogs } from './reducers/blogsReducer'
 import { saveUser } from './reducers/userReducer'
 import { newNotification } from './reducers/notificationReducer'
@@ -15,6 +15,7 @@ import {
   Link,
   useMatch
 } from 'react-router-dom'
+import UserView from './components/UserView'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -47,12 +48,7 @@ const App = () => {
   return (
     <div className="container">
       <Notification />
-      <Router>
-        <Menu />
-
-        <LogOrBlog />
-        <Users />
-      </Router>
+      <Menu />
     </div>
   )
 }

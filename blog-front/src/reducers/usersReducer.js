@@ -24,11 +24,5 @@ export const initializeUsers = () => {
   }
 }
 
-// export const clearUser = () => {
-//   return async (dispatch) => {
-//     dispatch(setUsers(null))
-//   }
-// }
-
 export const { setUsers } = usersSlice.actions
 export default usersSlice.reducer
