@@ -1,9 +1,17 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { newNotification } from '../reducers/notificationReducer'
 import { giveLike, removeBlog } from '../reducers/blogsReducer'
 
-const Blog = ({ blog, user }) => {
+const Blog = ({ blog }) => {
+  if (!blog) {
+    console.log('tyhjä on')
+    return null
+  }
+  const user = useSelector(({ user }) => {
+    return user
+  })
+
   const dispatch = useDispatch()
   const [visible, setVisible] = useState('view')
 
@@ -79,34 +87,22 @@ const Blog = ({ blog, user }) => {
     }
   }
 
-  const additionalInfo = () => {
-    if (visible === 'hide') {
-      return (
-        <div>
-          {blog.url}
-          <br />
-          likes: {blog.likes}
-          <button onClick={handleLikeButton}>like</button>
-          <br />
-          {blog.user.name}
-          <br />
-          {removeButton()}
-        </div>
-      )
-    }
-    return null
-  }
-
   return (
-    <li>
-      <div className="blogItem">
+    <div className="blogItem">
+      <h2>
         {blog.title} {blog.author}
-        <button onClick={handleButton} name={'view_Hide'}>
-          {visible}
-        </button>
-        {additionalInfo(blog)}
+      </h2>
+      <div>
+        <a href={blog.url}>{blog.url}</a>
+        <br />
+        likes: {blog.likes}
+        <button onClick={handleLikeButton}>like</button>
+        <br />
+        added by {blog.user.name}
+        <br />
+        {removeButton()}
       </div>
-    </li>
+    </div>
   )
 }
 

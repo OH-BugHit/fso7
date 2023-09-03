@@ -1,15 +1,18 @@
 li {
-  list-style-type: none;
   margin-top: 3px;
   margin-bottom: 3px;
   padding: 3px;
   border-width: 2px;
-  border-style: solid;
+  border-style: groove;
   border-radius: 2px;
 }
 
 .logoutButton {
-  margin-left: 3px;
+  margin-left: 5px;
+  background-color: rgb(116, 255, 237);
+  font-size: smaller;
+  border-radius: 8px;
+  border-width: 1px;
 }
 
 .removeBlog {
@@ -22,8 +25,11 @@ li {
 }
 
 button {
-  margin: 1px;
-  margin-left: 3px;
+  margin: 5px;
+  background-color: rgb(255, 255, 255);
+  font-size: small;
+  border-radius: 3px;
+  border-width: 1px;
 }
 
 .createButton {
