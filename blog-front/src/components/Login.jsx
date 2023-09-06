@@ -4,11 +4,13 @@ import loginService from '../services/login'
 import { newNotification } from '../reducers/notificationReducer'
 import { saveUser } from '../reducers/userReducer'
 import { initializeBlogs } from '../reducers/blogsReducer'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const loginUser = async () => {
     try {
@@ -47,6 +49,7 @@ const Login = () => {
     })
     setUsername('')
     setPassword('')
+    navigate('/')
   }
 
   return (

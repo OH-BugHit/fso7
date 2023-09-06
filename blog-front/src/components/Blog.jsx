@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { newNotification } from '../reducers/notificationReducer'
 import { giveLike, removeBlog } from '../reducers/blogsReducer'
 
 const Blog = ({ blog }) => {
   if (!blog) {
-    console.log('tyhjä on')
     return null
   }
   const user = useSelector(({ user }) => {
@@ -13,15 +11,6 @@ const Blog = ({ blog }) => {
   })
 
   const dispatch = useDispatch()
-  const [visible, setVisible] = useState('view')
-
-  const handleButton = () => {
-    if (visible === 'hide') {
-      setVisible('view')
-    } else {
-      setVisible('hide')
-    }
-  }
 
   const handleLikeButton = async () => {
     try {
@@ -47,13 +36,14 @@ const Blog = ({ blog }) => {
   }
 
   const removeButton = () => {
-    if (blog.user.username === user.username) {
-      return (
-        <button className="removeBlog" onClick={handleRemove}>
-          remove
-        </button>
-      )
-    } else {
+    if (user !== null) {
+      if (blog.user.username === user.username) {
+        return (
+          <button className="removeBlog" onClick={handleRemove}>
+            remove
+          </button>
+        )
+      }
       return null
     }
   }
@@ -96,7 +86,11 @@ const Blog = ({ blog }) => {
         <a href={blog.url}>{blog.url}</a>
         <br />
         likes: {blog.likes}
-        <button onClick={handleLikeButton}>like</button>
+        {user !== null ? (
+          <button onClick={handleLikeButton}>like</button>
+        ) : (
+          <></>
+        )}
         <br />
         added by {blog.user.name}
         <br />

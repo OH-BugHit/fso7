@@ -1,4 +1,5 @@
 const blogsRouter = require('express').Router()
+const { response } = require('express')
 const Blog = require('../models/blog')
 const { userExtractor } = require('../utils/middleware')
 require('../utils/middleware')
@@ -51,5 +52,10 @@ blogsRouter.put('/:id', async (request, response) => {
   )
   response.json(updatedPerson)
 })
+
+// blogsRouter.post('/:id/comments', async (request, response) => {
+
+//   const blogToUpdate = await Blog.find({})
+// })
 
 module.exports = blogsRouter

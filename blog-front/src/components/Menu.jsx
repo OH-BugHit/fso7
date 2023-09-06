@@ -5,6 +5,7 @@ import { useMatch, Link, Routes, Route } from 'react-router-dom'
 import BlogList from './BlogList'
 import Blog from './Blog'
 import Login from './Login'
+import { clearUser } from '../reducers/userReducer'
 
 const Menu = () => {
   const dispatch = useDispatch()
