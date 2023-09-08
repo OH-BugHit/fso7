@@ -1,3 +1,28 @@
+.container {
+  margin-top: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  border-left: #07ac82;
+  border-right: #07ac82;
+  border-width: 3px;
+  border-style: dashed;
+}
+
+tr {
+  width: max-content;
+}
+
+.topMenu {
+  text-align: center;
+  padding: 5px;
+}
+
+ul {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 li {
   margin-top: 8px;
   margin-bottom: 8px;
@@ -5,11 +30,9 @@ li {
   border-width: 2px;
   border-style: groove;
   border-radius: 2px;
-  list-style: radial-gradient(#e66465, #9198e5);
-}
-
-div {
-  margin-bottom: 5px;
+  border-width: 2px;
+  border-color: #70bac4;
+  list-style: radial-gradient(#07ac82, #9296c4);
 }
 
 h2 {
@@ -65,6 +88,7 @@ input {
 }
 
 .success {
+  margin-top: 10px;
   color: green;
   background: lightgrey;
   font-size: 20px;
@@ -75,6 +99,7 @@ input {
 }
 
 .error {
+  margin-top: 10px;
   color: red;
   background: lightgrey;
   font-size: 20px;

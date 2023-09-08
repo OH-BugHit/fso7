@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import CreateBlog from './CreateBlog'
 import Togglable from './Togglable'
 import { Link } from 'react-router-dom'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 
 const BlogList = () => {
   const createBlogRef = useRef()

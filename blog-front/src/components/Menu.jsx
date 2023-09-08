@@ -42,7 +42,7 @@ const Menu = () => {
 
   return (
     <div>
-      <div>
+      <div className="topMenu">
         <Link style={padding} to="/">
           blogs
         </Link>

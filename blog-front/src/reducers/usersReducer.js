@@ -7,6 +7,9 @@ const usersSlice = createSlice({
   reducers: {
     setUsers(state, action) {
       return action.payload
+    },
+    refresh(state, action) {
+      return state
     }
   }
 })

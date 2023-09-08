@@ -1,12 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Table } from 'react-bootstrap'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useMatch
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Users = () => {
   const users = useSelector(({ users }) => {

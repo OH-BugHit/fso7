@@ -9,7 +9,7 @@ const CreateBlog = ({ createBlogRef, user }) => {
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
-  const handleAddBlog = (event) => {
+  const handleAddBlog = async (event) => {
     event.preventDefault()
     createBlog({
       title: title,
