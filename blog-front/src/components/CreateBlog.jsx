@@ -50,36 +50,46 @@ const CreateBlog = ({ createBlogRef, user }) => {
       <h2>create new</h2>
 
       <form onSubmit={handleAddBlog}>
-        <div>
-          title:
-          <input
-            type="text"
-            value={title}
-            name="title"
-            onChange={({ target }) => setTitle(target.value)}
-            placeholder="type title here"
-          />
-        </div>
-        <div>
-          author:
-          <input
-            type="text"
-            value={author}
-            name="author"
-            onChange={({ target }) => setAuthor(target.value)}
-            placeholder="type author here"
-          />
-        </div>
-        <div>
-          url:
-          <input
-            type="text"
-            name="url"
-            value={url}
-            onChange={({ target }) => setUrl(target.value)}
-            placeholder="type url here"
-          />
-        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>title:</td>
+              <td>
+                <input
+                  type="text"
+                  value={title}
+                  name="title"
+                  onChange={({ target }) => setTitle(target.value)}
+                  placeholder="type title here"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>author:</td>
+              <td>
+                <input
+                  type="text"
+                  value={author}
+                  name="author"
+                  onChange={({ target }) => setAuthor(target.value)}
+                  placeholder="type author here"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>url:</td>
+              <td>
+                <input
+                  type="text"
+                  name="url"
+                  value={url}
+                  onChange={({ target }) => setUrl(target.value)}
+                  placeholder="type url here"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div>
           <button className="createButton" type="submit">
             create

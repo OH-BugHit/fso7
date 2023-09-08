@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import CreateBlog from './CreateBlog'
 import Togglable from './Togglable'
 import { Link } from 'react-router-dom'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 
 const BlogList = () => {
   const createBlogRef = useRef()
@@ -16,7 +16,7 @@ const BlogList = () => {
 
   return (
     <div>
-      <h2>blogs</h2>
+      <h2>Blogs</h2>
       <p></p>
       {user !== null ? (
         <Togglable
@@ -29,6 +29,7 @@ const BlogList = () => {
       ) : (
         <></>
       )}
+      <br />
       <ul>
         {blogs.map((blog) => (
           <li key={blog.id}>

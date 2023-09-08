@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { commentBlog } from '../reducers/blogsReducer'
 const baseUrl = 'http://localhost:3003/api/blogs'
 
 let token = null
@@ -43,8 +44,10 @@ const addLike = async (blog) => {
     likes: blog.likes,
     author: blog.author,
     title: blog.title,
-    url: blog.url
+    url: blog.url,
+    comments: blog.comments
   }
+
   const response = await axios.put(`${baseUrl}/${blog.id}`, updateBlog, headers)
   return response.data
 }
@@ -62,9 +65,16 @@ const deleteBlog = async (blog) => {
   return null
 }
 
+const addComment = async (id, comment) => {
+  const commentToSend = { comment }
+  const response = await axios.post(`${baseUrl}/${id}/comments`, commentToSend)
+  return response.data
+}
+
 export default {
   getAll,
   createBlog,
   addLike,
-  deleteBlog
+  deleteBlog,
+  addComment
 }

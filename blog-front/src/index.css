@@ -1,10 +1,32 @@
 li {
-  margin-top: 3px;
-  margin-bottom: 3px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 3px;
   border-width: 2px;
   border-style: groove;
   border-radius: 2px;
+  list-style: radial-gradient(#e66465, #9198e5);
+}
+
+div {
+  margin-bottom: 5px;
+}
+
+h2 {
+  color: rgb(0, 0, 0);
+  padding: 5px;
+}
+
+h3 {
+  color: rgb(36, 36, 36);
+}
+
+.commentItem {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 3px;
+  border-style: none;
+  list-style: radial-gradient(#e66465, #9198e5);
 }
 
 .logoutButton {

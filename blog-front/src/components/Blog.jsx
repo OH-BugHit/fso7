@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { newNotification } from '../reducers/notificationReducer'
 import { giveLike, removeBlog } from '../reducers/blogsReducer'
+import Comments from './Comments'
 
 const Blog = ({ blog }) => {
   if (!blog) {
     return null
   }
+  const dispatch = useDispatch()
   const user = useSelector(({ user }) => {
     return user
   })
-
-  const dispatch = useDispatch()
 
   const handleLikeButton = async () => {
     try {
@@ -95,6 +95,10 @@ const Blog = ({ blog }) => {
         added by {blog.user.name}
         <br />
         {removeButton()}
+        <p>
+          <br />
+        </p>
+        <Comments blog={blog} />
       </div>
     </div>
   )
